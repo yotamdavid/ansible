@@ -2,18 +2,19 @@
   become: yes
   tasks:
     - name: Update package cache
-      apt:
+      package:
         name: aptitude
         state: present
       when: ansible_pkg_mgr == 'apt'
 
     - name: Install Python 3 and Pip
-      apt:
+      package:
         name: python3-pip
         state: present
       when: ansible_pkg_mgr == 'apt'
 
-    - name: Install pip3
+    - name: Install pip
+      become: true
       apt:
         name: python3-pip
         state: present
@@ -37,7 +38,7 @@
     - name: Clone Git repository
       git:
         repo: https://github.com/yotamdavid/ferari_website.git
-        dest: /home/yotam/Desktop/ansible/ferari_website
+        dest: /home/ec2-user/
 
     - name: Copy flaskapp.service file
       copy:
