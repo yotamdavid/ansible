@@ -45,10 +45,10 @@
       git:
         repo: https://github.com/yotamdavid/ferari_website.git
         dest: /home/ec2-user/ferari_website
-        version: master
         accept_hostkey: yes
         depth: 1
         single_branch: true
+
 
     - name: Copy flaskapp.service file
       copy:
