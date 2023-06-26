@@ -47,12 +47,6 @@
         state: present
       when: ansible_pkg_mgr == 'dnf'
 
-    - name: Start and enable httpd service
-      service:
-        name: httpd
-        state: started
-        enabled: yes
-
     - name: Install OpenSSH
       package:
         name: openssh-server
