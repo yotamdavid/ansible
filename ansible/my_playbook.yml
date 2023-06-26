@@ -37,7 +37,7 @@
 
     - name: Delete existing directory
       file:
-        path: /home/ec2-user
+        path: /home/ec2-user/ferari_website
         state: absent
 
     - name: Clone Git repository
