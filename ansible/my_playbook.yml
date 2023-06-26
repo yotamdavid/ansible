@@ -62,4 +62,4 @@
 
     - name: Enable Flask App service on boot
       become: true
-     
+      command: systemctl enable flaskapp.service
