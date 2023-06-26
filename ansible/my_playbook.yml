@@ -1,20 +1,20 @@
 - hosts: flask
   become: yes
   tasks:
-    - name: Update package cache
+    - name: Update package cache (Debian)
       apt:
         update_cache: yes
       when: ansible_os_family == 'Debian'
 
     - name: Install Python 3 and Pip (Debian)
-      apt:
+      package:
         name: "{{ item }}"
         state: present
       loop:
         - python3
         - python3-pip
       when: ansible_os_family == 'Debian'
-    
+
     - name: Install Python 3 and Pip (RedHat)
       package:
         name: "{{ item }}"
@@ -24,10 +24,17 @@
         - python3-pip
       when: ansible_os_family == 'RedHat' and ansible_pkg_mgr == 'dnf'
 
+    - name: Install Pip (Debian)
+      package:
+        name: python3-pip
+        state: present
+      when: ansible_os_family == 'Debian' and (ansible_pkg_mgr == 'apt' or ansible_pkg_mgr == 'dnf')
+
     - name: Install Flask
       pip:
         name: flask
         state: present
+      when: ansible_pkg_mgr == 'apt' or ansible_pkg_mgr == 'dnf'
 
     - name: Install Apache HTTP Server (httpd)
       package:
@@ -58,7 +65,7 @@
     - name: Clone Git repository
       git:
         repo: https://github.com/yotamdavid/ferari_website.git
-        dest: /ec2-user/home/git
+        dest: /home/ec2-user/
 
     - name: Copy flaskapp.service file
       copy:
@@ -67,12 +74,12 @@
 
     - name: Reload systemd daemon
       become: true
-      command: systemctl daemon-reload
+      command: sudo systemctl daemon-reload
 
     - name: Start Flask App service
       become: true
-      command: systemctl start flaskapp.service
+      command: sudo systemctl start flaskapp.service
 
     - name: Enable Flask App service on boot
       become: true
-      command: systemctl enable flaskapp.service
+      command: sudo systemctl enable flaskapp.service
