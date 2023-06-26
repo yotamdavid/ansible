@@ -8,11 +8,8 @@
       when: ansible_pkg_mgr == 'apt'
       
     - name: Install python3-apt
-      package:
-        name: python3-apt
-        state: present
+      command: apt-get install -y python3-apt
       when: ansible_pkg_mgr == 'apt'
-
 
     - name: Install Python 3 and Pip
       package:
