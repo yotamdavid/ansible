@@ -33,6 +33,11 @@
         state: present
       when: ansible_pkg_mgr == 'apt'
 
+    - name: Delete existing directory
+      file:
+        path: /home/ec2-user
+        state: absent
+
     - name: Clone Git repository
       git:
         repo: https://github.com/yotamdavid/ferari_website.git
