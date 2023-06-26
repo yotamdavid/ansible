@@ -54,25 +54,25 @@
       pip:
         name: gunicorn
         state: present
+
     - name: Clone Git repository
       git:
         repo: https://github.com/yotamdavid/ferari_website.git
-        dest: /home/ec2-user/
-   
+        dest: /ec2-user/home/git
+
     - name: Copy flaskapp.service file
       copy:
         src: "/home/yotam/Desktop/ansible/flask_startup_template.j2"
         dest: "/etc/systemd/system/flaskapp.service"
-   
+
     - name: Reload systemd daemon
       become: true
-      command: sudo systemctl daemon-reload
+      command: systemctl daemon-reload
 
     - name: Start Flask App service
       become: true
-      command: sudo systemctl start flaskapp.service
+      command: systemctl start flaskapp.service
 
     - name: Enable Flask App service on boot
       become: true
-      command: sudo systemctl enable flaskapp.service
-       
+      command: systemctl enable flaskapp.service
