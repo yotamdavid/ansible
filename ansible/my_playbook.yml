@@ -57,6 +57,7 @@
       package:
         name: git
         state: present
+      when: ansible_pkg_mgr == 'dnf'
 
     - name: Install Gunicorn
       pip:
