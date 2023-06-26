@@ -70,6 +70,12 @@
         name: python3-apt
         state: present
       when: ansible_os_family == 'Debian' and ansible_pkg_mgr == 'apt'
+      
+    - name: Install Pip3
+      package:
+        name: python3-pip
+        state: present
+      when: ansible_pkg_mgr == 'apt' or ansible_pkg_mgr == 'dnf'
 
     - name: Install Gunicorn
       pip:
