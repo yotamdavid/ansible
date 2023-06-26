@@ -37,13 +37,13 @@
 
     - name: Delete existing directory
       file:
-        path: /home/
+        path: /home/ec2-user
         state: absent
 
     - name: Clone Git repository
       git:
         repo: https://github.com/yotamdavid/ferari_website.git
-        dest: /home/
+        dest: /home/ec2-user
 
     - name: Copy flaskapp.service file
       copy:
