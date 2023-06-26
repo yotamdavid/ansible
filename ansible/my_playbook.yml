@@ -1,11 +1,17 @@
 - hosts: flask
   become: yes
   tasks:
+    - name: Update package cache
+      package:
+        name: aptitude
+        state: present
+      when: ansible_pkg_mgr == 'apt'
+
     - name: Install Python 3 and Pip
       package:
         name: python3-pip
         state: present
-      when: ansible_pkg_mgr == 'apt' or ansible_pkg_mgr == 'dnf'
+      when: ansible_pkg_mgr == 'apt'
 
     - name: Install Flask
       pip:
@@ -16,14 +22,12 @@
       pip:
         name: gunicorn
         state: present
-      environment:
-        PYTHON: python3
 
     - name: Install Git
       package:
         name: git
         state: present
-      when: ansible_pkg_mgr == 'dnf'
+      when: ansible_pkg_mgr == 'apt'
 
     - name: Clone Git repository
       git:
