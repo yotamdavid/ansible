@@ -46,13 +46,10 @@
         repo: https://github.com/yotamdavid/ferari_website.git
         dest: /home/ec2-user/ferari_website
         accept_hostkey: yes
-        depth: 1
-        single_branch: true
-
 
     - name: Copy flaskapp.service file
       copy:
-        src: "/home/yotam/Desktop/ansible/ansible/flask_startup_template.j2"
+        src: "/home/ec2-user/ansible/flask_startup_template.j2"
         dest: "/etc/systemd/system/flaskapp.service"
 
     - name: Reload systemd daemon
@@ -65,4 +62,4 @@
 
     - name: Enable Flask App service on boot
       become: true
-      command: systemctl enable flaskapp.service
+     
