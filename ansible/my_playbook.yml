@@ -2,23 +2,23 @@
   become: yes
   tasks:
     - name: Update package cache
-      package:
+      apt:
         name: aptitude
         state: present
       when: ansible_pkg_mgr == 'apt'
 
     - name: Install Python 3 and Pip
-      package:
+      apt:
         name: python3-pip
         state: present
       when: ansible_pkg_mgr == 'apt'
 
     - name: Install pip
-      become: true
       apt:
         name: python3-pip
         state: present
-        
+      when: ansible_pkg_mgr == 'apt'
+
     - name: Install Flask
       pip:
         name: flask
@@ -38,7 +38,7 @@
     - name: Clone Git repository
       git:
         repo: https://github.com/yotamdavid/ferari_website.git
-        dest: /home/ec2-user/
+        dest: /home/yotam/Desktop/ansible/ferari_website
 
     - name: Copy flaskapp.service file
       copy:
@@ -47,12 +47,12 @@
 
     - name: Reload systemd daemon
       become: true
-      command: sudo systemctl daemon-reload
+      command: systemctl daemon-reload
 
     - name: Start Flask App service
       become: true
-      command: sudo systemctl start flaskapp.service
+      command: systemctl start flaskapp.service
 
     - name: Enable Flask App service on boot
       become: true
-      command: sudo systemctl enable flaskapp.service
+      command: systemctl enable flaskapp.service
