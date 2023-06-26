@@ -52,7 +52,7 @@
 
     - name: Copy flaskapp.service file
       copy:
-        src: "/home/yotam/Desktop/ansible/flask_startup_template.j2"
+        src: "/home/yotam/Desktop/ansible/ansible/flask_startup_template.j2"
         dest: "/etc/systemd/system/flaskapp.service"
 
     - name: Reload systemd daemon
