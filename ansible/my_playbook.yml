@@ -35,6 +35,18 @@
         state: present
       when: ansible_os_family == 'Debian' and (ansible_pkg_mgr == 'apt' or ansible_pkg_mgr == 'dnf')
 
+    - name: Install Pip3 (Debian)
+      package:
+        name: python3-pip
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Install Pip3 (RedHat)
+      package:
+        name: python3-pip
+        state: present
+      when: ansible_os_family == 'RedHat'
+
     - name: Install Flask
       pip:
         name: flask
@@ -53,36 +65,18 @@
         state: present
       when: ansible_pkg_mgr == 'apt' or ansible_pkg_mgr == 'dnf'
 
-    - name: Install Git (Debian)
+    - name: Install Git
       package:
         name: git
         state: present
-      when: ansible_os_family == 'Debian' and ansible_pkg_mgr == 'apt'
-
-    - name: Install Git (RedHat)
-      package:
-        name: git
-        state: present
-      when: ansible_os_family == 'RedHat' and ansible_pkg_mgr == 'dnf'
-
-    - name: Install Python3-apt (Debian)
-      package:
-        name: python3-apt
-        state: present
-      when: ansible_os_family == 'Debian' and ansible_pkg_mgr == 'apt'
-      
-    - name: Install Pip3
-      package:
-        name: python3-pip
-        state: present
-      when: ansible_pkg_mgr == 'apt' or ansible_pkg_mgr == 'dnf'
+      when: ansible_pkg_mgr == 'dnf'
 
     - name: Install Gunicorn
       pip:
         name: gunicorn
         state: present
       environment:
-        PYTHON: python3.9
+        PYTHON: python3
 
     - name: Clone Git repository
       git:
