@@ -60,10 +60,8 @@
       when: ansible_pkg_mgr == 'dnf'
 
     - name: Install Pip3
-      package:
-        name: python3-pip
-        state: present
-      when: ansible_os_family == 'Debian' or (ansible_os_family == 'RedHat' and ansible_pkg_mgr == 'dnf')
+      apt: name=python3-pip state=present 
+
 
     - name: Install Gunicorn
       pip:
