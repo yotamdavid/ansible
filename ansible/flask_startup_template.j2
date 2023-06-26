@@ -1,4 +1,4 @@
-sudo echo -e "[Unit]
+sudo bash -c 'echo -e "[Unit]
 Description=Flask Web Application
 After=network.target
 
@@ -9,4 +9,4 @@ ExecStart=gunicorn --bind 0.0.0.0:5000 app:app &
 Restart=always
 
 [Install]
-WantedBy=multi-user.target" > /etc/systemd/system/flaskapp.service
+WantedBy=multi-user.target" > /etc/systemd/system/flaskapp.service'
