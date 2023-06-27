@@ -8,23 +8,33 @@
 
     - name: Install Python 3 and Pip
       package:
+        name: python3
+        state: present
+      when: ansible_pkg_mgr == 'dnf'
+
+    - name: Install Python 3 and Pip
+      package:
         name: python3-pip
         state: present
+      when: ansible_pkg_mgr == 'dnf'
 
     - name: Install Flask
       pip:
         name: flask
         state: present
+      when: ansible_pkg_mgr == 'dnf'
 
     - name: Install Gunicorn
       pip:
         name: gunicorn
         state: present
+      when: ansible_pkg_mgr == 'dnf'
 
     - name: Install Git
       package:
         name: git
         state: present
+      when: ansible_pkg_mgr == 'dnf'
 
     - name: Delete existing directory
       file:
