@@ -1,37 +1,30 @@
 - hosts: flask
-  become: yes
-  vars:
-    ansible_python_interpreter: /usr/bin/python3.9
+  become: true
   tasks:
     - name: Update package cache
       package:
-        name: aptitude
-        state: present
-      when: ansible_pkg_mgr == 'apt'
+        name: "{{ ansible_pkg_mgr }}"
+        state: latest
 
     - name: Install Python 3 and Pip
       package:
         name: python3-pip
         state: present
-      when: ansible_pkg_mgr == 'dnf'
 
     - name: Install Flask
       pip:
         name: flask
         state: present
-      when: ansible_pkg_mgr == 'dnf'
 
     - name: Install Gunicorn
       pip:
         name: gunicorn
         state: present
-      when: ansible_pkg_mgr == 'dnf'
 
     - name: Install Git
       package:
         name: git
         state: present
-      when: ansible_pkg_mgr == 'dnf'
 
     - name: Delete existing directory
       file:
@@ -39,7 +32,6 @@
         state: absent
 
     - name: Clone Git repository
-      become: true
       git:
         repo: https://github.com/yotamdavid/ferari_website.git
         dest: /home/ec2-user/ferari_website
@@ -51,13 +43,10 @@
         dest: "/etc/systemd/system/flaskapp.service"
 
     - name: Reload systemd daemon
-      become: true
       command: systemctl daemon-reload
 
     - name: Restart Flask App service
-      become: true
       command: systemctl restart flaskapp.service
 
     - name: Enable Flask App service on boot
-      become: true
       command: systemctl enable flaskapp.service
