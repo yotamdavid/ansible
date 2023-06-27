@@ -8,19 +8,14 @@
       
     - name: Install Python 3 and Pip
       package:
-        name: "{{ item }}"
+        name: python3
         state: present
-      loop:
-        - python3
-        - python3-pip
-      when: ansible_pkg_mgr == 'apt' or ansible_pkg_mgr == 'dnf' or ansible_pkg_mgr == 'yum'
-      
+      when: ansible_pkg_mgr == 'apt' or ansible_pkg_mgr == 'dnf' or ansible_pkg_mgr == 'yum' or ansible_pkg_mgr == 'zypper'
+          
     - name: Install Flask
       pip:
         name: flask
         state: present
-    - name: Install Apache HTTP Server (httpd)
-      package:
 
     - name: Install OpenSSH
       package:
