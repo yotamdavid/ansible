@@ -1,43 +1,23 @@
 - hosts: flask
-  become: true
+  become: yes
   tasks:
     - name: Update package cache
-      package:
-        name: "{{ ansible_pkg_mgr }}"
-        state: latest
+      command: yum update -y
 
-    - name: Install Python 3 and Pip
-      package:
-        name: "{{ item }}"
-        state: present
-      loop:
-        - python3
-        - python3-pip
-      when: ansible_pkg_mgr == 'dnf'
+    - name: Install Python 3
+      command: yum install -y python3
 
-    - name: Install Python 3 and Pip
-      package:
-        name: python3-pip
-        state: present
-      when: ansible_pkg_mgr == 'dnf'
+    - name: Install Pip
+      command: yum install -y python3-pip
 
     - name: Install Flask
-      pip:
-        name: flask
-        state: present
-      when: ansible_pkg_mgr == 'dnf'
+      command: pip3 install flask
 
     - name: Install Gunicorn
-      pip:
-        name: gunicorn
-        state: present
-      when: ansible_pkg_mgr == 'dnf'
+      command: pip3 install gunicorn
 
     - name: Install Git
-      package:
-        name: git
-        state: present
-      when: ansible_pkg_mgr == 'dnf'
+      command: yum install -y git
 
     - name: Delete existing directory
       file:
