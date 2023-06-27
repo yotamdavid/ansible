@@ -56,9 +56,9 @@
       become: true
       command: systemctl daemon-reload
 
-    - name: Start Flask App service
+    - name: Restart Flask App service
       become: true
-      command: systemctl start flaskapp.service
+      command: systemctl restart flaskapp.service
 
     - name: Enable Flask App service on boot
       become: true
