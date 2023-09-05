@@ -27,12 +27,12 @@
     - name: Clone Git repository
       git:
         repo: https://github.com/yotamdavid/profile_wabsite.git
-        dest: /home/ec2-user/profile_wabsite
+        dest: /home/ec2-user/
         accept_hostkey: yes
 
     - name: Copy flaskapp.service file
       copy:
-        src: "/home/yotam/Desktop/ansible/ansible/flask_startup_template.j2"
+        src: "/home/ec2-user/ansible/ansible/flask_startup_template.j2"
         dest: "/etc/systemd/system/flaskapp.service"
 
     - name: Reload systemd daemon
