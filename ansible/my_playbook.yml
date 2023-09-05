@@ -1,4 +1,4 @@
-- hosts: flask
+- hosts: localhost
   become: yes
   tasks:
     - name: Update package cache
