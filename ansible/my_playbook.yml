@@ -21,7 +21,7 @@
 
     - name: Delete existing directory
       file:
-        path: /home/ec2-user/profile_wabsite/
+        path: /home/ec2-user/app/web_project/
         state: absent
 
     - name: Clone Git repository
