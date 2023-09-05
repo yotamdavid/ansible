@@ -21,7 +21,7 @@
 
     - name: Delete existing directory
       file:
-        path: /home/ec2-user/app/web_project/
+        path: /home/ec2-user/app/
         state: absent
 
     - name: Clone Git repository
