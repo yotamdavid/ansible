@@ -21,13 +21,13 @@
 
     - name: Delete existing directory
       file:
-        path: /home/ec2-user/ferari_website
+        path: /home/ec2-user/profile_wabsite
         state: absent
 
     - name: Clone Git repository
       git:
-        repo: https://github.com/yotamdavid/ferari_website.git
-        dest: /home/ec2-user/ferari_website
+        repo: https://github.com/yotamdavid/profile_wabsite.git
+        dest: /home/ec2-user/profile_wabsite
         accept_hostkey: yes
 
     - name: Copy flaskapp.service file
